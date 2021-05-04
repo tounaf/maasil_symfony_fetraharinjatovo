@@ -8,9 +8,15 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ArticleType extends AbstractType
 {
+    private $user;
+    public function __construct(Security $security)
+    {
+        $this->user = $security->getUser();
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,8 +25,10 @@ class ArticleType extends AbstractType
             ->add('description')
             ->add('createBy', EntityType::class, array(
                 'class' => User::class,
+                'placeholder' => 'Choisir user',
                 'label' => 'Nom',
-                'choice_label' => 'username'
+                'choice_label' => 'username',
+                'data' => $this->user
             ))
         ;
     }
