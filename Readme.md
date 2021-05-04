@@ -18,6 +18,7 @@ Faire un seed :
     $php bin/console dotrine:fixtures:load
 
 Lancer les tests:
+
     $./vendor/bin/phpunit
 
 Créer un user pour se connecter sur un client:
